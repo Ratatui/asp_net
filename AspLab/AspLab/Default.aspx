@@ -18,6 +18,13 @@
 	</style>
 
 	<form id="mainForm" runat="server">
+		<div id="nameBlock" visible="false" runat="server">
+			<b>Представьтесь пожалуйста,</b><input id="nameTextBox" runat="server" value="" />
+		</div>
+		<div id="cookiesBlock" visible="false" runat="server">
+			<b>Добро пожаловать, </b>
+			<label id="nameLabel" runat="server" />
+		</div>
 		<div>
 			<asp:PlaceHolder ID="PlaceHolder" runat="server" />
 		</div>

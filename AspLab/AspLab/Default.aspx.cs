@@ -15,6 +15,8 @@ namespace AspLab
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+
+
 			#region InitWizard
 
 			Wizard wizard = new Wizard() { ID = "wizard" };
@@ -33,7 +35,28 @@ namespace AspLab
 
 			#endregion
 
+			#region Name from Cookies
 
+			var userNameCookies = Request.Cookies["userName"];
+			if (userNameCookies != null)
+			{
+				this.nameLabel.InnerText = userNameCookies.Value.ToString();
+				this.cookiesBlock.Visible = true;
+			}
+			else
+				this.nameBlock.Visible = true;
+
+			#endregion
+
+			if (this.IsPostBack)
+			{
+				if (Request.Cookies["userName"] == null)
+				{
+					var cookie = new HttpCookie("userName", this.nameTextBox.Value);
+					cookie.Expires = DateTime.Now.AddMinutes(2); // for testing
+					Response.Cookies.Add(cookie);
+				}
+			}
 		}
 
 		private bool LoadCategories(Wizard wizard)

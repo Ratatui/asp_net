@@ -15,6 +15,8 @@ namespace AspLab
 				return;
 
 			var wizard = (Wizard)this.PreviousPage.FindControl("mainForm").FindControl("PlaceHolder").FindControl("wizard");
+			if (wizard == null)
+				return;
 			foreach (WizardStep wizardStep in wizard.WizardSteps)
 			{
 				foreach (var control in wizardStep.Controls)
