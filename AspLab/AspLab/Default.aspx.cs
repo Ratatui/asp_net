@@ -10,13 +10,11 @@ namespace AspLab
 {
 	public partial class Default : System.Web.UI.Page
 	{
-		private readonly string CategoriesPath = @"/App_Data/Categories.txt";
-		private readonly string ProductsPath = @"/App_Data/Products.txt";
+		private readonly string categoriesPath = @"/App_Data/Categories.txt";
+		private readonly string productsPath = @"/App_Data/Products.txt";
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
-
 			#region InitWizard
 
 			Wizard wizard = new Wizard() { ID = "wizard" };
@@ -57,11 +55,18 @@ namespace AspLab
 					Response.Cookies.Add(cookie);
 				}
 			}
+
+			#region DataBase Connection
+
+			var sqlProvider = new DataBaseProvider();
+
+
+			#endregion
 		}
 
 		private bool LoadCategories(Wizard wizard)
 		{
-			var pathToFile = Server.MapPath("~") + this.CategoriesPath;
+			var pathToFile = Server.MapPath("~") + this.categoriesPath;
 			if (File.Exists(pathToFile))
 			{
 				var streamReader = new StreamReader(pathToFile);
@@ -82,7 +87,7 @@ namespace AspLab
 
 		private bool LoadProducts(Wizard wizard)
 		{
-			var pathToFile = Server.MapPath("~") + this.ProductsPath;
+			var pathToFile = Server.MapPath("~") + this.productsPath;
 			if (File.Exists(pathToFile))
 			{
 				var streamReader = new StreamReader(pathToFile);
@@ -109,10 +114,10 @@ namespace AspLab
 							wizardStep.Controls.Add(new LiteralControl("<br/>"));
 						}
 						else
-							return CustomErrorPage("Products file is invalid: unknown category");
+							throw new Exception("Products file is invalid: unknown category");
 					}
 					else
-						return CustomErrorPage("Products file is invalid: invalid markup");
+						throw new Exception("Products file is invalid: invalid markup");
 				}
 
 				return true;

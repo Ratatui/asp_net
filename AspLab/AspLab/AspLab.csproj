@@ -59,9 +59,15 @@
   <ItemGroup>
     <Content Include="ApplicationError.aspx" />
     <Content Include="App_Data\Categories.txt" />
+    <Content Include="App_Data\Database.mdf" />
+    <Content Include="App_Data\Database_log.ldf">
+      <DependentUpon>Database.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\Products.txt" />
+    <Content Include="Controls\CategoriesControl.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="Order.aspx" />
+    <Content Include="Controls\ProductsControl.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +78,14 @@
     <Compile Include="ApplicationError.aspx.designer.cs">
       <DependentUpon>ApplicationError.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\CategoriesControl.ascx.cs">
+      <DependentUpon>CategoriesControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\CategoriesControl.ascx.designer.cs">
+      <DependentUpon>CategoriesControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="DataBaseProvider.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -85,6 +99,13 @@
     </Compile>
     <Compile Include="Order.aspx.designer.cs">
       <DependentUpon>Order.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ProductsControl.ascx.cs">
+      <DependentUpon>ProductsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\ProductsControl.ascx.designer.cs">
+      <DependentUpon>ProductsControl.ascx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
