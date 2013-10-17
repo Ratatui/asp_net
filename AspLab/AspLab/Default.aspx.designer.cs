@@ -58,12 +58,21 @@ namespace AspLab {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl nameLabel;
         
         /// <summary>
-        /// PlaceHolder control.
+        /// CategoriesControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder;
+        protected global::AspLab.CategoriesControl CategoriesControl;
+        
+        /// <summary>
+        /// ProductsControl control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AspLab.ProductsControl ProductsControl;
     }
 }

@@ -37,14 +37,13 @@ namespace AspLab
 			this.categoriesList = new List<string>();
 			this.productsList = new List<string>();
 			this.categoriesDictionary = new Dictionary<string, int?>();
-			this.LoadData();
 		}
 
 		#endregion
 
 		#region Methods
 
-		private void LoadCategoriesList()
+		public List<string> LoadCategoriesList()
 		{
 			this.categoriesList.Clear();
 			this.productsList.Clear();
@@ -63,9 +62,11 @@ namespace AspLab
 			}
 			sqlDataReader.Close();
 			sqlCommand.Connection.Close();
+
+			return this.categoriesList;
 		}
 
-		private void LoadProductsList(string categoryName)
+		public List<string> LoadProductsList(string categoryName)
 		{
 			this.productsList.Clear();
 
@@ -73,7 +74,7 @@ namespace AspLab
 			if (this.categoriesDictionary.Keys.Contains(categoryName))
 				categoryId = this.categoriesDictionary[categoryName];
 			else
-				categoryId = this.categoriesDictionary[this.categoriesList.FirstOrDefault()];
+				return null;
 
 			var query = @"SELECT * FROM Products WHERE CategoryId = " + categoryId.ToString() + @" ORDER BY Name";
 			SqlCommand sqlCommand = new SqlCommand(query, this.sqlConnection);
@@ -86,12 +87,8 @@ namespace AspLab
 			}
 			sqlDataReader.Close();
 			sqlCommand.Connection.Close();
-		}
 
-		private void LoadData()
-		{
-			this.LoadCategoriesList();
-			this.LoadProductsList(string.Empty);
+			return this.productsList;
 		}
 
 		#endregion

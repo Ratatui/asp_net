@@ -14,27 +14,16 @@ namespace AspLab
 			if (this.PreviousPage == null)
 				return;
 
-			var wizard = (Wizard)this.PreviousPage.FindControl("mainForm").FindControl("PlaceHolder").FindControl("wizard");
-			if (wizard == null)
-				return;
-			foreach (WizardStep wizardStep in wizard.WizardSteps)
+			List<string> ordersList = Session["OrdersList"] as List<string> ?? new List<string>();
+			foreach (var item in ordersList)
 			{
-				foreach (var control in wizardStep.Controls)
-				{
-					if (control is CheckBox)
-					{
-						var checkBox = control as CheckBox;
-						if (checkBox.Checked)
-						{
-							TableRow tableRow = new TableRow();
-							tableRow.BorderWidth = 1;
-							tableRow.Cells.Add(new TableCell() { Text = wizardStep.Title, BorderWidth = 1 });
-							tableRow.Cells.Add(new TableCell() { Text = checkBox.Text, BorderWidth = 1 });
-							this.Table1.Rows.Add(tableRow);
-						}
-					}
-				}
+				TableRow tableRow = new TableRow();
+				tableRow.BorderWidth = 1;
+
+				tableRow.Cells.Add(new TableCell() { Text = item, BorderWidth = 1 });
+				this.Table1.Rows.Add(tableRow);
 			}
+
 		}
 	}
 }

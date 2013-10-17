@@ -11,7 +11,6 @@
 		<div>
 			<asp:Table ID="Table1" runat="server" BorderWidth="1">
 				<asp:TableHeaderRow>
-					<asp:TableHeaderCell Width="100">Категория</asp:TableHeaderCell>
 					<asp:TableHeaderCell Width="300">Товар</asp:TableHeaderCell>
 				</asp:TableHeaderRow>
 			</asp:Table>
