@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspLab.App_Code;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,8 @@ namespace AspLab
 {
 	public partial class ProductsControl : System.Web.UI.UserControl
 	{
-		private List<string> itemsSource;
-		public List<string> ItemsSource
+		private List<Product> itemsSource;
+		public List<Product> ItemsSource
 		{
 			get { return itemsSource; }
 			set
@@ -31,11 +32,11 @@ namespace AspLab
 				return;
 
 			this.PlaceHolder.Controls.Clear();
-			var orderList = Session["OrdersList"] as List<string>;
+			var orderList = Session["OrdersList"] as List<Product>;
 			foreach (var item in this.itemsSource)
 			{
-				var checkBox = new CheckBox() { Text = item, Checked = false, ID = item, AutoPostBack = true };
-				if (orderList != null && orderList.Contains(item))
+				var checkBox = new CheckBox() { Text = item.ProductName, Checked = false, ID = item.ProductId.ToString(), AutoPostBack = true };
+				if (orderList != null && orderList.Count(product => product.ProductId == int.Parse(checkBox.ID)) > 0)
 					checkBox.Checked = true;
 				checkBox.CheckedChanged += checkBox_CheckedChanged;
 				this.PlaceHolder.Controls.Add(checkBox);
@@ -46,12 +47,15 @@ namespace AspLab
 		private void checkBox_CheckedChanged(object sender, EventArgs e)
 		{
 			var checkBox = sender as CheckBox;
-			List<string> ordersList = Session["OrdersList"] as List<string> ?? new List<string>();
+			List<Product> ordersList = Session["OrdersList"] as List<Product> ?? new List<Product>();
 
 			if (checkBox.Checked)
-				ordersList.Add(checkBox.Text);
+				ordersList.Add(new Product() { ProductName = checkBox.Text, ProductId = int.Parse(checkBox.ID) });
 			else
-				ordersList.Remove(checkBox.Text);
+			{
+				var pos = ordersList.FindIndex(item => item.ProductId == int.Parse(checkBox.ID));
+				ordersList.RemoveAt(pos);
+			}
 
 			Session["OrdersList"] = ordersList;
 		}

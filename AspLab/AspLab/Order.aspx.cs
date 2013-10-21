@@ -11,18 +11,6 @@ namespace AspLab
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (this.PreviousPage == null)
-				return;
-
-			List<string> ordersList = Session["OrdersList"] as List<string> ?? new List<string>();
-			foreach (var item in ordersList)
-			{
-				TableRow tableRow = new TableRow();
-				tableRow.BorderWidth = 1;
-
-				tableRow.Cells.Add(new TableCell() { Text = item, BorderWidth = 1 });
-				this.Table1.Rows.Add(tableRow);
-			}
 
 		}
 	}

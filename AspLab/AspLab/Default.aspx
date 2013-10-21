@@ -3,8 +3,6 @@
 <%@ Register Src="~/Controls/ProductsControl.ascx" TagPrefix="userControls" TagName="ProductsControl" %>
 <%@ Register Src="~/Controls/CategoriesControl.ascx" TagPrefix="userControls" TagName="CategoriesControl" %>
 
-
-
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -41,7 +39,7 @@
 			</tr>
 		</table>
 		<br />
-		<asp:Button runat="server" Text="Заказать" PostBackUrl="~/Order.aspx" />
+		<asp:Button runat="server" Text="Корзина" PostBackUrl="~/Basket.aspx" />
 	</form>
 </body>
 </html>

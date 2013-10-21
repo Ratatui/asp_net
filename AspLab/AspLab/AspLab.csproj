@@ -66,8 +66,9 @@
     <Content Include="App_Data\Products.txt" />
     <Content Include="Controls\CategoriesControl.ascx" />
     <Content Include="Default.aspx" />
-    <Content Include="Order.aspx" />
+    <Content Include="Basket.aspx" />
     <Content Include="Controls\ProductsControl.ascx" />
+    <Content Include="Order.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +79,7 @@
     <Compile Include="ApplicationError.aspx.designer.cs">
       <DependentUpon>ApplicationError.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\Product.cs" />
     <Compile Include="Controls\CategoriesControl.ascx.cs">
       <DependentUpon>CategoriesControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -85,7 +87,7 @@
     <Compile Include="Controls\CategoriesControl.ascx.designer.cs">
       <DependentUpon>CategoriesControl.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DataBaseProvider.cs" />
+    <Compile Include="App_Code\DataBaseProvider.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -93,12 +95,12 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Order.aspx.cs">
-      <DependentUpon>Order.aspx</DependentUpon>
+    <Compile Include="Basket.aspx.cs">
+      <DependentUpon>Basket.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Order.aspx.designer.cs">
-      <DependentUpon>Order.aspx</DependentUpon>
+    <Compile Include="Basket.aspx.designer.cs">
+      <DependentUpon>Basket.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controls\ProductsControl.ascx.cs">
       <DependentUpon>ProductsControl.ascx</DependentUpon>
@@ -106,6 +108,13 @@
     </Compile>
     <Compile Include="Controls\ProductsControl.ascx.designer.cs">
       <DependentUpon>ProductsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Order.aspx.cs">
+      <DependentUpon>Order.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Order.aspx.designer.cs">
+      <DependentUpon>Order.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -118,7 +127,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_GlobalResources\" />
     <Folder Include="App_LocalResources\" />
   </ItemGroup>

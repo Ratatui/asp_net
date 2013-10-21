@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AspLab.App_Code;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace AspLab
+namespace AspLab_AppCode
 {
 	public class DataBaseProvider
 	{
@@ -19,10 +20,17 @@ namespace AspLab
 			get { return categoriesList; }
 		}
 
-		private List<string> productsList;
-		public List<string> ProductsList
+		private List<Product> productsList;
+		public List<Product> ProductsList
 		{
 			get { return productsList; }
+		}
+
+		private List<Product> ordersList;
+		public List<Product> OrdersList
+		{
+			get { return ordersList; }
+			set { ordersList = value; }
 		}
 
 		private Dictionary<string, int?> categoriesDictionary;
@@ -35,7 +43,7 @@ namespace AspLab
 		{
 			this.sqlConnection = new SqlConnection("Data Source=aspLabs.mssql.somee.com;Initial Catalog=aspLabs;Persist Security Info=True;User ID=ratatui_SQLLogin_1;Password=pxyg3qg19i");
 			this.categoriesList = new List<string>();
-			this.productsList = new List<string>();
+			this.productsList = new List<Product>();
 			this.categoriesDictionary = new Dictionary<string, int?>();
 		}
 
@@ -66,7 +74,7 @@ namespace AspLab
 			return this.categoriesList;
 		}
 
-		public List<string> LoadProductsList(string categoryName)
+		public List<Product> LoadProductsList(string categoryName)
 		{
 			this.productsList.Clear();
 
@@ -83,12 +91,43 @@ namespace AspLab
 			SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 			while (sqlDataReader.Read())
 			{
-				this.productsList.Add(sqlDataReader["Name"].ToString());
+				this.productsList.Add(new Product() { ProductName = sqlDataReader["Name"].ToString(), CategoryId = sqlDataReader["CategoryId"] as int?, ProductId = sqlDataReader["ProductId"] as int? });
 			}
 			sqlDataReader.Close();
 			sqlCommand.Connection.Close();
 
 			return this.productsList;
+		}
+
+		public List<Product> LoadOrdersList(string userName)
+		{
+			var query = @"";
+			SqlCommand sqlCommand = new SqlCommand(query, this.sqlConnection);
+			sqlCommand.Connection.Open();
+
+			SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+			while (sqlDataReader.Read())
+			{
+				this.productsList.Add(new Product() { ProductName = sqlDataReader["Name"].ToString(), CategoryId = sqlDataReader["CategoryId"] as int?, ProductId = sqlDataReader["ProductId"] as int? });
+			}
+			sqlDataReader.Close();
+			sqlCommand.Connection.Close();
+
+			return this.productsList;
+		}
+
+		public void CreateOrderLines(List<Product> ordersList, string userName)
+		{
+			this.sqlConnection.Open();
+			foreach (var item in ordersList)
+			{
+				var query = @"INSERT INTO Orders(ProductId, Username) VALUES(@param1, @param2)";
+				SqlCommand sqlCommand = new SqlCommand(query, this.sqlConnection);
+				sqlCommand.Parameters.Add("param1", System.Data.SqlDbType.Int).Value = item.ProductId;
+				sqlCommand.Parameters.Add("param2", System.Data.SqlDbType.NVarChar).Value = userName;
+				sqlCommand.ExecuteNonQuery();
+			}
+			this.sqlConnection.Close();
 		}
 
 		#endregion
