@@ -45,6 +45,7 @@ namespace AspLab_AppCode
 			this.categoriesList = new List<string>();
 			this.productsList = new List<Product>();
 			this.categoriesDictionary = new Dictionary<string, int?>();
+			this.ordersList = new List<Product>();
 		}
 
 		#endregion
@@ -101,19 +102,19 @@ namespace AspLab_AppCode
 
 		public List<Product> LoadOrdersList(string userName)
 		{
-			var query = @"";
+			var query = @"SELECT * FROM Products INNER JOIN Orders ON Products.ProductId = Orders.ProductId WHERE Orders.Username = '" + userName + "'";
 			SqlCommand sqlCommand = new SqlCommand(query, this.sqlConnection);
 			sqlCommand.Connection.Open();
 
 			SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 			while (sqlDataReader.Read())
 			{
-				this.productsList.Add(new Product() { ProductName = sqlDataReader["Name"].ToString(), CategoryId = sqlDataReader["CategoryId"] as int?, ProductId = sqlDataReader["ProductId"] as int? });
+				this.ordersList.Add(new Product() { ProductName = sqlDataReader["Name"].ToString() });
 			}
 			sqlDataReader.Close();
 			sqlCommand.Connection.Close();
 
-			return this.productsList;
+			return this.ordersList;
 		}
 
 		public void CreateOrderLines(List<Product> ordersList, string userName)

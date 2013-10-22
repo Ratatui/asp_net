@@ -10,16 +10,6 @@
 	<title>Каталог</title>
 </head>
 <body>
-	<style type="text/css">
-		.hidden {
-			display: none;
-		}
-
-		.visible {
-			display: inline;
-		}
-	</style>
-
 	<form id="mainForm" runat="server">
 		<div id="nameBlock" visible="false" runat="server">
 			<b>Представьтесь пожалуйста,</b><input id="nameTextBox" runat="server" value="" />

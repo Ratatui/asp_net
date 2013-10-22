@@ -31,7 +31,7 @@ namespace AspLab
 				if (Request.Cookies["userName"] == null)
 				{
 					var cookie = new HttpCookie("userName", this.nameTextBox.Value);
-					cookie.Expires = DateTime.Now.AddMinutes(2); // for testing
+					cookie.Expires = DateTime.Now.AddMinutes(10); // for testing
 					Response.Cookies.Add(cookie);
 				}
 			}
