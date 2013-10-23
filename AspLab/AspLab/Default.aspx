@@ -18,18 +18,30 @@
 			<b>Добро пожаловать, </b>
 			<label id="nameLabel" runat="server" />
 		</div>
-		<table>
-			<tr>
-				<td>
-					<userControls:CategoriesControl runat="server" ID="CategoriesControl" />
-				</td>
-				<td valign="top">
-					<userControls:ProductsControl runat="server" ID="ProductsControl" />
-				</td>
-			</tr>
-		</table>
+		<asp:ScriptManager ID="ScriptManager1" runat="server" />
+		<asp:UpdatePanel ID="Updatepanel1" runat="server">
+			<ContentTemplate>
+				<table>
+					<tr>
+						<td>
+							<userControls:CategoriesControl runat="server" ID="CategoriesControl" />
+						</td>
+						<td valign="top">
+							<userControls:ProductsControl runat="server" ID="ProductsControl" />
+						</td>
+					</tr>
+				</table>
+			</ContentTemplate>
+		</asp:UpdatePanel>
 		<br />
+
+		<asp:UpdateProgress ID="UpdateProgress1" runat="server">
+			<ProgressTemplate>
+				Getting products...
+			</ProgressTemplate>
+		</asp:UpdateProgress>
 		<asp:Button runat="server" Text="Корзина" PostBackUrl="~/Basket.aspx" />
 	</form>
 </body>
 </html>
+

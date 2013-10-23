@@ -11,6 +11,8 @@ namespace AspLab
 {
 	public partial class Default : System.Web.UI.Page
 	{
+		private static DataBaseProvider sqlProvider = new DataBaseProvider();
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			#region Name from Cookies
@@ -38,13 +40,13 @@ namespace AspLab
 
 			#region DataBase Connection
 
-			var sqlProvider = new DataBaseProvider();
-			this.CategoriesControl.ItemsSource = sqlProvider.LoadCategoriesList();
+			this.CategoriesControl.SqlProvider = sqlProvider;
+			this.CategoriesControl.ProductsControl = this.ProductsControl;
 
-			if (this.Request.QueryString.AllKeys.Contains("CategoryName"))
-				this.CategoriesControl.SelectedItem = this.Request.QueryString["CategoryName"];
-
-			this.ProductsControl.ItemsSource = sqlProvider.LoadProductsList(this.CategoriesControl.SelectedItem);
+			if (sqlProvider.CategoriesList.Count == 0)
+				this.CategoriesControl.ItemsSource = sqlProvider.LoadCategoriesList();
+			else
+				this.CategoriesControl.ItemsSource = sqlProvider.CategoriesList;
 
 			#endregion
 		}

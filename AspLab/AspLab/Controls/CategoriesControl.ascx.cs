@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AspLab_AppCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -32,13 +33,20 @@ namespace AspLab
 				else
 					return string.Empty;
 			}
-			set { selectedItem = value; }
+			set
+			{
+				selectedItem = value;
+				ProductsControl.ItemsSource = SqlProvider.LoadProductsList(value);
+			}
 		}
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			this.SetCategoriesList();
 		}
+
+		public DataBaseProvider SqlProvider { get; set; }
+		public ProductsControl ProductsControl { get; set; }
 
 		private void SetCategoriesList()
 		{
@@ -50,13 +58,26 @@ namespace AspLab
 			{
 				var button = new Button();
 				button.Text = item;
-				button.PostBackUrl = "~/Default.aspx?CategoryName=" + item;
-				if (item == this.SelectedItem)
-					button.BorderColor = System.Drawing.Color.Red;
+				button.Click += button_Click;
 
 				this.PlaceHolder.Controls.Add(button);
 				this.PlaceHolder.Controls.Add(new LiteralControl("<br />"));
 			}
+		}
+
+		void button_Click(object sender, EventArgs e)
+		{
+			System.Threading.Thread.Sleep(3000);
+
+			foreach (Control button in this.Controls)
+			{
+				if (button is Button)
+					(button as Button).BorderColor = System.Drawing.Color.Transparent;
+			}
+
+			Button Button = sender as Button;
+			Button.BorderColor = System.Drawing.Color.Red;
+			SelectedItem = Button.Text;
 		}
 	}
 }
