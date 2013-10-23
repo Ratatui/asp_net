@@ -15,6 +15,16 @@ namespace AspLab
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			if (this.IsPostBack)
+			{
+				if (Request.Cookies["userName"] == null && !string.IsNullOrWhiteSpace(this.nameTextBox.Value))
+				{
+					var cookie = new HttpCookie("userName", this.nameTextBox.Value);
+					cookie.Expires = DateTime.Now.AddMinutes(10); // for testing
+					Response.Cookies.Add(cookie);
+				}
+			}
+
 			#region Name from Cookies
 
 			var userNameCookies = Request.Cookies["userName"];
@@ -22,21 +32,15 @@ namespace AspLab
 			{
 				this.nameLabel.InnerText = userNameCookies.Value.ToString();
 				this.cookiesBlock.Visible = true;
+				this.nameBlock.Visible = false;
 			}
 			else
+			{
 				this.nameBlock.Visible = true;
+				this.cookiesBlock.Visible = false;
+			}
 
 			#endregion
-
-			if (this.IsPostBack)
-			{
-				if (Request.Cookies["userName"] == null)
-				{
-					var cookie = new HttpCookie("userName", this.nameTextBox.Value);
-					cookie.Expires = DateTime.Now.AddMinutes(10); // for testing
-					Response.Cookies.Add(cookie);
-				}
-			}
 
 			#region DataBase Connection
 
@@ -47,6 +51,8 @@ namespace AspLab
 				this.CategoriesControl.ItemsSource = sqlProvider.LoadCategoriesList();
 			else
 				this.CategoriesControl.ItemsSource = sqlProvider.CategoriesList;
+
+			this.ProductsControl.ItemsSource = sqlProvider.ProductsList;
 
 			#endregion
 		}

@@ -3,6 +3,8 @@
 <%@ Register Src="~/Controls/ProductsControl.ascx" TagPrefix="userControls" TagName="ProductsControl" %>
 <%@ Register Src="~/Controls/CategoriesControl.ascx" TagPrefix="userControls" TagName="CategoriesControl" %>
 
+<%--<%@ OutputCache Duration="300" VaryByControl="CategoriesControl" Location="ServerAndClient" %>--%>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
