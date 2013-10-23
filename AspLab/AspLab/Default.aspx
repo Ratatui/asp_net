@@ -6,15 +6,20 @@
 <%--<%@ OutputCache Duration="300" VaryByControl="CategoriesControl" Location="ServerAndClient" %>--%>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>Каталог</title>
+	<title>Catalog</title>
 </head>
 <body>
 	<form id="mainForm" runat="server">
 		<div id="nameBlock" visible="false" runat="server">
-			<b>Представьтесь пожалуйста,</b><input id="nameTextBox" runat="server" value="" />
+			<asp:ValidationSummary ID="ValidationSummary1" runat="server"
+				HeaderText="There were errors on the page:" />
+			<b>Представьтесь пожалуйста,</b><asp:TextBox ID="nameTextBox" runat="server" />
+			<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
+				ControlToValidate="nameTextBox"
+				ErrorMessage="User name is required."> *
+			</asp:RequiredFieldValidator>
 		</div>
 		<div id="cookiesBlock" visible="false" runat="server">
 			<b>Добро пожаловать, </b>
@@ -42,8 +47,7 @@
 				Getting products...
 			</ProgressTemplate>
 		</asp:UpdateProgress>
-		<asp:Button runat="server" Text="Корзина" PostBackUrl="~/Basket.aspx" />
+		<asp:Button runat="server" Text="Basket" OnClick="Unnamed_Click"/>
 	</form>
 </body>
 </html>
-

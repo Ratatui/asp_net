@@ -15,13 +15,30 @@ namespace AspLab
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+			
+		
+			ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
+				new ScriptResourceDefinition
+				{
+					Path = "~/scripts/jquery-1.7.2.min.js",
+					DebugPath = "~/scripts/jquery-1.7.2.min.js",
+					CdnPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.min.js",
+					CdnDebugPath = "http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.1.js"
+				});
+
 			if (this.IsPostBack)
 			{
-				if (Request.Cookies["userName"] == null && !string.IsNullOrWhiteSpace(this.nameTextBox.Value))
+				Validate();
+
+				if (Request.Cookies["userName"] == null && !string.IsNullOrWhiteSpace(this.nameTextBox.Text))
 				{
-					var cookie = new HttpCookie("userName", this.nameTextBox.Value);
+					var cookie = new HttpCookie("userName", this.nameTextBox.Text);
 					cookie.Expires = DateTime.Now.AddMinutes(10); // for testing
 					Response.Cookies.Add(cookie);
+				}
+				if (!IsValid)
+				{
+					return;
 				}
 			}
 
@@ -62,6 +79,18 @@ namespace AspLab
 			Session["CurrentError"] = Message;
 			Server.Transfer("ApplicationError.aspx");
 			return false;
+		}
+
+		protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+		{
+
+		}
+
+		protected void Unnamed_Click(object sender, EventArgs e)
+		{
+			Validate();
+			if (IsValid)
+				Response.Redirect("~/Basket.aspx");
 		}
 	}
 }

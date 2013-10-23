@@ -4,18 +4,18 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-	<title>Заказ</title>
+	<title>Basket</title>
 </head>
 <body>
 	<form id="form1" runat="server" method="post">
 		<div>
 			<asp:Table ID="Table1" runat="server" BorderWidth="1">
 				<asp:TableHeaderRow>
-					<asp:TableHeaderCell Width="300">Товар</asp:TableHeaderCell>
+					<asp:TableHeaderCell Width="300">Product</asp:TableHeaderCell>
 				</asp:TableHeaderRow>
 			</asp:Table>
 		</div>
-		<asp:Button ID="CreateOrder" runat="server" OnClick="CreateOrder_Click" Text="Заказать" UseSubmitBehavior="true" />
+		<asp:Button ID="CreateOrder" runat="server" OnClick="CreateOrder_Click" Text="Order" UseSubmitBehavior="true" />
 	</form>
 </body>
 </html>
