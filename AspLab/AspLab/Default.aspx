@@ -15,14 +15,14 @@
 		<div id="nameBlock" visible="false" runat="server">
 			<asp:ValidationSummary ID="ValidationSummary1" runat="server"
 				HeaderText="There were errors on the page:" />
-			<b>Представьтесь пожалуйста,</b><asp:TextBox ID="nameTextBox" runat="server" />
+			<b>What is your name? </b><asp:TextBox ID="nameTextBox" runat="server" />
 			<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server"
 				ControlToValidate="nameTextBox"
 				ErrorMessage="User name is required."> *
 			</asp:RequiredFieldValidator>
 		</div>
 		<div id="cookiesBlock" visible="false" runat="server">
-			<b>Добро пожаловать, </b>
+			<b>Hello, </b>
 			<label id="nameLabel" runat="server" />
 		</div>
 		<asp:ScriptManager ID="ScriptManager1" runat="server" />

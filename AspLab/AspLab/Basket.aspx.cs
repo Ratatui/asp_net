@@ -13,9 +13,6 @@ namespace AspLab
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (this.PreviousPage == null)
-				return;
-
 			List<Product> ordersList = Session["OrdersList"] as List<Product> ?? new List<Product>();
 			foreach (var item in ordersList)
 			{
